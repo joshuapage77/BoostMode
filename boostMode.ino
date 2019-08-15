@@ -45,7 +45,7 @@
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals
 // Though Hole NeoPixel: use NEO_RGB instead of NEO_GRB
-Adafruit_NeoPixel pixels(NUMPIXELS, LED_DATA_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels(NUMPIXELS, LED_DATA_PIN, NEO_RGB + NEO_KHZ800);
 
 
 int readValue = 0;
