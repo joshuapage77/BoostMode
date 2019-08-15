@@ -1,2 +1,18 @@
 # BoostMode
-This is part of a project to add a boost mode to my daughter's Powerwheels Dune Racer. The RED led is the pin you would hook to your relay that adds another 6v in series for a total of 18v. The idea of boost mode is to not burn out the motor by giving it cool down time. I take no responsibility for damage to your toys or kids
+This is part of a project to add a boost mode to my daughter's Powerwheels Dune Racer.
+An additional 6v will be added in series by a relay controlled by the pin BOOST_RELAY_PIN.
+The idea of boost mode is to not burn out the motor by giving it cool down time.
+
+## Running
+Open the code in your Arduino IDE (or whatever you use for transfer) and upload.
+
+## Simulating
+[Tinkercad here](https://www.tinkercad.com/things/e17CCP4wUoT)
+
+# Project Components
+
+### Dashboard 3D Model
+Get the (stl here)[https://www.thingiverse.com/thing:3784130] from (Thingiverse)[https://www.thingiverse.com/thing:3784130]
+
+### Electronics Compartment 3D Model
+(comming soon)

@@ -28,25 +28,30 @@
 
 #define MAX_CHARGE  100
 
-// speed that charge changes during different states (milliseconds)
+// Speed that charge changes during different states (milliseconds)
+// I like the 3/4/6 ratio.
 #define I_CHARGE             200
 #define I_DEPLETED_CHARGE    150
 #define I_BOOST              100
 
+// 255 is max for pixel, but you can lower the max here. I'm using 25
+#define MAX_BRIGHT    255
 // used to determin led to light
 #define DASH_RATIO    ((float)(NUMPIXELS) / (float)MAX_CHARGE)
-#define MAX_BRIGHT    25 //255 is max for pixel, but you can lower the max here
 #define LED_BUCKET_SIZE ((float)MAX_CHARGE / (float)NUMPIXELS)
+// used to determin brightness based on charge level of bucket
 #define BRIGHT_RATIO  (float)MAX_BRIGHT / LED_BUCKET_SIZE
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals
-Adafruit_NeoPixel pixels(NUMPIXELS, LED_DATA_PIN, NEO_RGB + NEO_KHZ800);
+// Though Hole NeoPixel: use NEO_RGB instead of NEO_GRB
+Adafruit_NeoPixel pixels(NUMPIXELS, LED_DATA_PIN, NEO_GRB + NEO_KHZ800);
 
 
 int readValue = 0;
 int state = S_INIT;
 int charge = MAX_CHARGE;
+// tokens are used with method timeElapse to abstract time syncing logic
 unsigned long chargeToken = 0;
 unsigned long pixelToken = 0;
 unsigned long serialToken = 0;
@@ -89,13 +94,6 @@ void updateBoostMeter(bool red, bool green, bool blue, bool force) {
     }
     pixels.show();
     Serial.print("State: ");
-    //Serial.print(state);
-    //Serial.print("\t\tcharge: ");
-    //Serial.print(charge);
-    //Serial.print("\t\thighPixel: ");
-    //Serial.print(highPixel);
-    //Serial.print("\t\tbright: ");
-    //Serial.println(bright);
   }
 }
 void forceUpdateBoostMeter(bool red, bool green, bool blue) {
