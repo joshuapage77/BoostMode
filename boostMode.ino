@@ -35,7 +35,7 @@
 #define I_BOOST              100
 
 // 255 is max for pixel, but you can lower the max here. I'm using 25
-#define MAX_BRIGHT    255
+#define MAX_BRIGHT    50
 // used to determin led to light
 #define DASH_RATIO    ((float)(NUMPIXELS) / (float)MAX_CHARGE)
 #define LED_BUCKET_SIZE ((float)MAX_CHARGE / (float)NUMPIXELS)
@@ -51,6 +51,9 @@ Adafruit_NeoPixel pixels(NUMPIXELS, LED_DATA_PIN, NEO_RGB + NEO_KHZ800);
 int readValue = 0;
 int state = S_INIT;
 int charge = MAX_CHARGE;
+// I accidently soldered my leds backwards. So used this as an abstraction to fix it.
+// int leds[6] = {0, 1, 2, 3, 4, 5};
+int leds[6] = {4, 3, 2, 1, 0, 5};
 // tokens are used with method timeElapse to abstract time syncing logic
 unsigned long chargeToken = 0;
 unsigned long pixelToken = 0;
@@ -86,12 +89,13 @@ void updateBoostMeter(bool red, bool green, bool blue, bool force) {
     byte bright = (float)p_bright * BRIGHT_RATIO;
     uint32_t color = pixels.Color(red * bright, green * bright, blue * bright);
     for(int i=0; i<=highPixel; i++) {
-      if (i == highPixel) pixels.setPixelColor(i, color);
-      else pixels.setPixelColor(i, pixels.Color(red * MAX_BRIGHT, green * MAX_BRIGHT, blue * MAX_BRIGHT));
+      if (i == highPixel) pixels.setPixelColor(leds[i], color);
+      else pixels.setPixelColor(leds[i], pixels.Color(red * MAX_BRIGHT, green * MAX_BRIGHT, blue * MAX_BRIGHT));
     }
     for (int i=highPixel+1; i<NUMPIXELS; i++) {
-      pixels.setPixelColor(i, pixels.Color(0, 0, 0));
+      pixels.setPixelColor(leds[i], pixels.Color(0, 0, 0));
     }
+
     pixels.show();
     Serial.print("State: ");
   }
